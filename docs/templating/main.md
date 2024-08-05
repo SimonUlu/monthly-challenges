@@ -31,3 +31,26 @@ INSTALLED_APPS = [
     'challenges',
 ]
 ```
+
+## Output variables with interpolation
+
+
+```sh
+return render(
+    request, "challenges/challenge.html", {
+    "text": challenge_text, 
+    "month": month,
+})
+```
+
+- like in laravel add this
+
+```sh
+<h2>{{text}}</h2>
+```
+
+## Filter functions in templates
+
+```sh
+<h1>{{month | title}} challenge</h1>
+```
