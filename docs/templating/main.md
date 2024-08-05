@@ -3,5 +3,5 @@
 ```sh
 - app-dir
 -- templates
---- challenges
+--- app-dir
 ```
