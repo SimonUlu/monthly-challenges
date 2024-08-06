@@ -3,6 +3,10 @@ from django.http import HttpResponse, HttpResponseNotFound, HttpResponseRedirect
 from django.urls import reverse
 from django.template.loader import render_to_string
 
+from .models import Book
+
+
+
 # Create your views here.
 
 monthly_challenges = {
@@ -22,12 +26,26 @@ monthly_challenges = {
 
 
 def index(request):
+    
+    books = Book.objects.all()
 
     months = list(monthly_challenges.keys())
 
     return render(request, "challenges/index.html", {
         "months": months,
+        "books": books,
     })
+    
+def book_detail(request, id):
+    
+    book = Book.objects.get(pk=id)
+    return render(request, "challenges/test.html", {
+            "title": book.title,
+            "author": book.author,
+            "rating": book.rating,
+            "is_bestseller": book.is_bestseller,
+        }
+    )
 
 
 def monthly_challenge_by_number(request, month):

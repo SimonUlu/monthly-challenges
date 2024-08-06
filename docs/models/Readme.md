@@ -15,6 +15,7 @@ class Book(models.Model):
     rating = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(5)])
     author = models.CharField(null=True, max_length=255)
     is_bestselling = models.BooleanField(default=False)
+    slug = models.SlugField(default="", null=False)
 ```
 
 - from scratch django creates the table with a field id that is auto incrementing
@@ -28,6 +29,25 @@ class Book(models.Model):
 ```sh
 def __str__(self):
         return f"{self.title} ({self.rating})"
+```
+
+- create url
+
+```sh
+def get_absolute_url(self):
+    return reverse("book-detail", args=[self.id]) 
+```
+
+- overwrite save (but make sure the built in will also get called)
+
+```sh
+from django.utils.text import slugify
+
+def save(self, *args, **kwargs):
+    self.slug = slugify(self.title)
+    super().save(*args, **kwargs)
+
+
 ```
 
 ## After creating the models run migrations which will create new migrations under migrations folder
@@ -132,3 +152,6 @@ You can delete multiple model instances (i.e. database records) at once: https:/
 You can update multiple model instances (i.e. database records) at once: https://docs.djangoproject.com/en/3.0/ref/models/querysets/#bulk-update
 
 You can create multiple model instances (i.e. database records) at once: https://docs.djangoproject.com/en/3.0/ref/models/querysets/#bulk-create
+
+
+## Preparing data for displaying in templates or returning in views functions
