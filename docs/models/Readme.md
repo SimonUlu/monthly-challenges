@@ -35,7 +35,7 @@ def __str__(self):
 
 ```sh
 def get_absolute_url(self):
-    return reverse("book-detail", args=[self.id]) 
+    return reverse("book-detail", args=[self.slug]) 
 ```
 
 - overwrite save (but make sure the built in will also get called)
@@ -155,3 +155,26 @@ You can create multiple model instances (i.e. database records) at once: https:/
 
 
 ## Preparing data for displaying in templates or returning in views functions
+
+
+## Aggregation function
+
+These are one of the most important aggregate function for more visit docs
+
+```sh
+from django.db.models import Avg, Max, Min
+
+avg_rating = books.aggregate(Avg("rating")) ## -> this will be new col rating__avg
+```
+
+## Order and sort functions
+
+-- does ordering on the database level and not with python
+
+```sh
+## asc
+books = Book.objects.all().order_by("title")
+
+## desc
+books = Book.objects.all().order_by("title")
+```

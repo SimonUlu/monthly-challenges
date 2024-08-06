@@ -1,7 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, HttpResponseNotFound, HttpResponseRedirect
 from django.urls import reverse
 from django.template.loader import render_to_string
+from django.db.models import Avg, Max, Min
 
 from .models import Book
 
@@ -28,12 +29,18 @@ monthly_challenges = {
 def index(request):
     
     books = Book.objects.all()
+    
+    number_of_books = books.count()
+    
+    avg_rating = books.aggregate(Avg("rating"))
 
     months = list(monthly_challenges.keys())
 
     return render(request, "challenges/index.html", {
         "months": months,
         "books": books,
+        "num_books": number_of_books,
+        "avg_rating": avg_rating,
     })
     
 def book_detail(request, id):
