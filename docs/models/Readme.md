@@ -25,6 +25,8 @@ python manage.py makemigrations
 
 ## Run all migrations that have not been executed yet
 
+- this will also run migrations that are part of the base application
+
 ```sh
 python manage.py migrate
 ```
