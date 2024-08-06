@@ -1,5 +1,7 @@
 ## Foreign Key Relation
 
+#### 1. One to many relation
+
 ```sh
 class Author(models.Model):
     fn = models.CharField(max_length=100)
@@ -16,6 +18,18 @@ class Book(models.Model):
 - protect:
 - set null:
 
+#### 2. One to one relation
+
+```sh
+class Address(models.Model):
+    street = models.CharField(max_length=80)
+    postal_code = models.CharField(max_length=5)
+    city = models.CharField(max_length=60)
+
+class Author(modelsModel):
+   address = models.OneToOneField(Address, on_delete=models.CASCADE) 
+```
+
 
 ## Query by relations
 
@@ -31,5 +45,5 @@ jkr.book_set.all()
 - with related_names
 
 ```sh
-
+jkr.books.all()
 ```
