@@ -27,6 +27,19 @@ class CreateProfileView(View):
 
 ## use django helper functions to simplify file upload
 
+
+- add the following to the settings.py of the base projects folder
+
+```sh
+MEDIA_ROOT = BASE_DIR / "uploads"
+```
+
 ```sh
 
 ```
+
+
+```sh
+
+```
+
