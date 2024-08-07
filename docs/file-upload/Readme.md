@@ -61,3 +61,26 @@ class UserProfile(models.Model):
         })
 ```
 
+
+## serving uploaded files
+
+- serving uploaded files
+
+add this to settings.py of project
+```sh
+MEDIA_URL = "/user-media/"
+```
+
+add this to urls.py of main project
+
+```sh
+from django.conf.urls.static import static
+from django.conf import settings
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('challenges/', include("challenges.urls")),
+    path('reviews/', include("reviews.urls")),
+    path('profiles/', include("profiles.urls")),
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+```
