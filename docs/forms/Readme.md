@@ -56,6 +56,8 @@ visit docs for further customization: https://docs.djangoproject.com/en/5.0/ref/
 def index(request):
     if request.method == "POST":
         form = ReviewForm(request.POST)
+        ## or updating an existing data
+        ##form = ReviewForm(request.POST, instance=Review.objects.get(pk=1))
         if form.is_valid():
             review = Review(
                 user_name=form.cleaned_data["user_name"],
@@ -63,6 +65,8 @@ def index(request):
                 rating= form.cleaned_data["rating"],
             )
             review.save()
+            ## or: (only if you work with ModelForms)
+            ## form.save() 
             return redirect("thank_you")
     else:
         form = ReviewForm()
@@ -122,4 +126,31 @@ class ReviewForm(forms.ModelForm):
             "review_text": "Your review text",
             "rating": "Your rating"
         }
+```
+
+## Class based views instead of functions
+
+-- but for example smth like this in views.py:
+
+```sh
+class ReviewView(View):
+    def get(self, request):
+
+        form = ReviewForm()
+
+        return render(request, "reviews/review.html", {"form": form})
+
+    def post(self, request):
+        form = ReviewForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect("thank_you")
+        
+        return render(request, "reviews/review.html", {"form": form})
+``` 
+
+- change url ins urls.py like follows:
+
+```sh
+    path('', views.ReviewView.as_view()),  
 ```
