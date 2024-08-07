@@ -3,13 +3,10 @@ from django.views import View
 
 from .forms import ProfileForm
 
+from .models import UserProfile
+
 # Create your views here.
 
-
-def store_file(file):
-    with open("temp/image.jpg", "wb+") as dest:
-        for chunk in file.chunks():
-            dest.write(chunk)
 
 class CreateProfileView(View):
     def get(self, request):
@@ -23,10 +20,8 @@ class CreateProfileView(View):
         submitted_form = ProfileForm(request.POST, request.FILES)
         
         if submitted_form.is_valid():
-            files = request.FILES["image"]
-        
-            store_file(files)
-            
+            profile = UserProfile(image=request.FILES["user_image"])
+            profile.save()
             return redirect("/profiles")
         
         
