@@ -4,7 +4,7 @@ from django.views import View
 # Create your views here.
 
 
-def __store_file(file):
+def store_file(file):
     with open("temp/image.jpg", "wb+") as dest:
         for chunk in file.chunks():
             dest.write(chunk)
@@ -16,7 +16,7 @@ class CreateProfileView(View):
     def post(self, request):
         files = request.FILES["image"]
         
-        __store_file(files)
+        store_file(files)
         
         return redirect("/profiles")
 
