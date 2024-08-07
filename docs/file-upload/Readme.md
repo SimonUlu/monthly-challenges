@@ -23,3 +23,10 @@ class CreateProfileView(View):
         
         return redirect("/profiles")
 ```
+
+
+## use django helper functions to simplify file upload
+
+```sh
+
+```
