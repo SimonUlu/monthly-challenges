@@ -1,18 +1,18 @@
 from django.shortcuts import render, redirect
 
+from .forms import ReviewForm
+
 
 # Create your views here.
 
 
 def index(request):
-    if request.method == "POST":
-        entered_username = request.POST["username"]
-
-        if entered_username == "":
-            return render(request, "reviews/review.html", {"has_error": True})
-
-        return redirect("thank_you")
-    return render(request, "reviews/review.html", {"has_error": True})
+    form = ReviewForm()
+    
+    return render(request, "reviews/review.html", {
+        "form": form
+    })
+    
 
 
 def thank_you(request):

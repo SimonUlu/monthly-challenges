@@ -12,12 +12,8 @@
         
         <form action="/reviews/" method="POST">
             {% csrf_token %}
-            <label for="username">Your name</label>
-            <input type="text" name="username" id="username" />
-
-            {% if has_error %}
-                <p> This is a mandatory field </p>
-            {% endif %}
+            
+            {{ form }}
             <button type="submit">Send</button>
         </form>
     </body>
