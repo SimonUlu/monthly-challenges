@@ -72,3 +72,54 @@ def index(request):
 
 
 ## Model forms
+
+
+```sh
+from .models import Review
+
+## instead of doing this
+
+class ReviewForm(forms.Form):
+    user_name = forms.CharField(label="Your Name",max_length=255, error_messages={
+        "required": "Your name must not be empty",
+        "max_length": "Please enter a shorter name",
+    })
+    review_text = forms.CharField(label="Your feedback", widget=forms.Textarea, max_length=255)
+    rating = forms.IntegerField(label="Your rating", min_value=1, max_value=5)
+
+## just add this
+
+class ReviewForm(forms.ModelForm):
+    class Meta:
+        model = Review
+        ##either one of the following
+        fields = '__all__'
+        #exclude = ["owner"]
+        #fields = ["user_name", "rating"]
+        
+```
+
+## Configuring the modelform
+
+```sh
+## configure your meta for example as follows
+class ReviewForm(forms.ModelForm):
+    class Meta:
+        model = Review
+        fields = '__all__'
+        #exclude = ["owner"]
+        #fields = ["user_name", "rating"]
+        labels = {
+            "user_name": "Your Name",
+            "review_text": "Your review text",
+            "rating": "Your rating"
+        }
+        error_messages = {
+            "user_name": {
+              "required": "Your name must be required" ,
+              "max_length": "You have to set a max length",
+            },
+            "review_text": "Your review text",
+            "rating": "Your rating"
+        }
+```
