@@ -35,6 +35,19 @@ class Author(modelsModel):
 published_country = models.ManyToManyField(Country) ## no on delete method
 ```
 
+- if you want to set the relation you have to add() instead of setting equal = 
+
+```sh
+book.published_country.add(germany)
+```
+
+- if you want to get this 
+
+
+```sh
+
+```
+
 ## Query by relations
 
 - inverse relations
