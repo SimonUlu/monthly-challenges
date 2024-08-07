@@ -29,7 +29,11 @@ class Address(models.Model):
 class Author(modelsModel):
    address = models.OneToOneField(Address, on_delete=models.CASCADE) 
 ```
+#### 3. Many to Many relations
 
+```sh
+published_country = models.ManyToManyField(Country) ## no on delete method
+```
 
 ## Query by relations
 
@@ -46,4 +50,10 @@ jkr.book_set.all()
 
 ```sh
 jkr.books.all()
+```
+
+## Register Meta specifia inside of model class
+
+```sh
+
 ```

@@ -4,11 +4,22 @@ from django.core.validators import MinValueValidator, MaxValueValidator
 # Create your models here.
 
 
+class Country(models.Model):
+    name = models.CharField(max_length=80)
+    code = models.CharField(max_length=2)
+
 
 class Address(models.Model):
     street = models.CharField(max_length=80)
     postal_code = models.CharField(max_length=5)
     city = models.CharField(max_length=60)
+    
+    def __str__(self):
+        return f"{self.postal_code} {self.city}, {self.street}"
+    
+    class Meta:
+        verbose_name_plural = "Address Entries"
+        
     
 class Author(models.Model):
     # id will be created auto
@@ -29,6 +40,7 @@ class Book(models.Model):
     author = models.ForeignKey(Author, on_delete=models.CASCADE, null=True, related_name="books")
     is_bestselling = models.BooleanField(default=False)
     slug = models.SlugField(default="", blank=True, null=False, db_index=True)
+    published_country = models.ManyToManyField(Country)
     
     
     def __str__(self):
