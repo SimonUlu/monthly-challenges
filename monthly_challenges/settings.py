@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'challenges',
     'reviews',
+    'profiles',
 ]
 
 MIDDLEWARE = [

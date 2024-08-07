@@ -3,6 +3,7 @@ from django.shortcuts import render, redirect
 from .forms import ReviewForm
 from .models import Review
 from django.views import View
+from django.views.generic.base import TemplateView
 
 
 # Create your views here.
@@ -36,5 +37,9 @@ def index(request):
     return render(request, "reviews/review.html", {"form": form})
 
 
-def thank_you(request):
-    return render(request, "reviews/thank_you.html")
+    
+
+class ThankYouView(TemplateView):
+    
+    template_name = "reviews/thank_you.html"
+    
